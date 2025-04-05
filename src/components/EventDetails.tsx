@@ -27,7 +27,7 @@ import {
   Schedule as ScheduleIcon,
   Group as GroupIcon,
 } from '@mui/icons-material';
-import { format } from 'date-fns';
+import { dayjs } from '../utils/dateAdapter';
 import { Event, RegistrationFormData } from '../types';
 import { eventApi } from '../services/api';
 
@@ -183,7 +183,7 @@ const EventDetails = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <ScheduleIcon />
                       <Typography>
-                        {format(new Date(event.dateTime), 'PPP p')}
+                        {dayjs(event.dateTime).format('MMMM D, YYYY h:mm A')}
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

@@ -24,7 +24,7 @@ const initialFormData: EventFormData = {
   title: '',
   hostName: '',
   hostEmail: '',
-  hostPhone: '',
+  hostWechatId: '',
   description: '',
   location: {
     address: '',
@@ -203,9 +203,9 @@ const EventForm = () => {
               <TextField
                 required
                 fullWidth
-                label="Host Phone"
-                name="hostPhone"
-                value={formData.hostPhone}
+                label="Host WeChat ID"
+                name="hostWechatId"
+                value={formData.hostWechatId}
                 onChange={handleChange}
               />
             </Grid>

@@ -15,7 +15,7 @@ import {
   Alert,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import { format } from 'date-fns';
+import { dayjs } from '../utils/dateAdapter';
 import { Event } from '../types';
 import { eventApi } from '../services/api';
 
@@ -168,7 +168,7 @@ const EventList = () => {
                 </Typography>
                 
                 <Typography color="textSecondary" gutterBottom>
-                  {format(new Date(event.dateTime), 'MMM dd, yyyy - h:mm a')}
+                  {dayjs(event.dateTime).format('MMMM D, YYYY h:mm A')}
                 </Typography>
                 
                 <Typography variant="body2" gutterBottom>
