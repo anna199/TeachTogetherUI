@@ -1,25 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from './utils/dateAdapter';
+
+// Components
+import Navbar from './components/Navbar';
+import EventList from './components/EventList';
+import EventDetails from './components/EventDetails';
+import EventForm from './components/EventForm';
+import Calendar from './components/Calendar';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2196f3',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+    background: {
+      default: '#f5f5f5',
+    },
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <CssBaseline />
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<EventList />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/events/new" element={<EventForm />} />
+              <Route path="/events/:id" element={<EventDetails />} />
+              <Route path="/events/:id/edit" element={<EventForm />} />
+            </Routes>
+          </div>
+        </Router>
+      </LocalizationProvider>
+    </ThemeProvider>
   );
 }
 
