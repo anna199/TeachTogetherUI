@@ -3,7 +3,7 @@ export interface Event {
   title: string;
   hostName: string;
   hostEmail: string;
-  hostPhone: string;
+  hostWechatId: string;
   description: string;
   location: {
     address: string;
@@ -33,7 +33,7 @@ export interface Event {
 export interface Participant {
   parentName: string;
   parentEmail: string;
-  parentPhone: string;
+  wechatId: string;
   childName: string;
   childAge: number;
   notes: string;
@@ -47,7 +47,7 @@ export interface EventFormData extends Omit<Event, '_id' | 'participants' | 'cur
 export interface RegistrationFormData {
   parentName: string;
   parentEmail: string;
-  parentPhone: string;
+  wechatId: string;
   childName: string;
   childAge: number;
   notes: string;

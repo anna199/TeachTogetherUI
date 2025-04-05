@@ -42,7 +42,7 @@ const EventDetails = () => {
   const [registrationForm, setRegistrationForm] = useState<RegistrationFormData>({
     parentName: '',
     parentEmail: '',
-    parentPhone: '',
+    wechatId: '',
     childName: '',
     childAge: 0,
     notes: '',
@@ -161,8 +161,7 @@ const EventDetails = () => {
                     <Typography>{event.hostEmail}</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <PhoneIcon fontSize="small" />
-                    <Typography>{event.hostPhone}</Typography>
+                    <Typography>WeChat: {event.hostWechatId}</Typography>
                   </Box>
                 </Box>
               </Box>
@@ -201,39 +200,54 @@ const EventDetails = () => {
                   <Typography variant="h6" gutterBottom>
                     Description
                   </Typography>
-                  <Typography paragraph>{event.description}</Typography>
-                  {event.additionalNotes && (
-                    <Typography color="text.secondary">
-                      Additional notes: {event.additionalNotes}
-                    </Typography>
-                  )}
+                  <Typography>{event.description}</Typography>
                 </Box>
               </Box>
 
-              {/* Participants */}
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  Participants ({event.currentEnrollment}/{event.maxCapacity})
-                </Typography>
-                <List>
-                  {event.participants.map((participant, index) => (
-                    <ListItem key={index}>
-                      <ListItemText
-                        primary={`${participant.childName} (${participant.childAge} years old)`}
-                        secondary={`Parent: ${participant.parentName}`}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
+              {/* Registered Participants */}
+              {event.participants && event.participants.length > 0 && (
+                <Box>
+                  <Typography variant="h6" gutterBottom>
+                    Registered Participants
+                  </Typography>
+                  <List>
+                    {event.participants.map((participant, index) => (
+                      <ListItem key={index} divider>
+                        <ListItemText
+                          primary={`${participant.childName} (Age: ${participant.childAge})`}
+                          secondary={
+                            <>
+                              <Typography component="span" variant="body2">
+                                Parent: {participant.parentName}
+                              </Typography>
+                              <br />
+                              <Typography component="span" variant="body2">
+                                Contact: {participant.parentEmail} | WeChat: {participant.wechatId}
+                              </Typography>
+                              {participant.notes && (
+                                <>
+                                  <br />
+                                  <Typography component="span" variant="body2">
+                                    Notes: {participant.notes}
+                                  </Typography>
+                                </>
+                              )}
+                            </>
+                          }
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              )}
 
               {/* Register Button */}
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Box sx={{ mt: 3 }}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={() => setShowRegisterDialog(true)}
-                  disabled={event.currentEnrollment >= event.maxCapacity}
+                  disabled={event.currentEnrollment >= event.maxCapacity || event.status === 'cancelled'}
                 >
                   Register for Event
                 </Button>
@@ -266,10 +280,10 @@ const EventDetails = () => {
               onChange={handleRegistrationChange}
             />
             <TextField
-              label="Parent Phone"
+              label="WeChat ID"
               fullWidth
-              name="parentPhone"
-              value={registrationForm.parentPhone}
+              name="wechatId"
+              value={registrationForm.wechatId}
               onChange={handleRegistrationChange}
             />
             <TextField
