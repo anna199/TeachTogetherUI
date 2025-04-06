@@ -42,7 +42,7 @@ const EventDetails = () => {
   const [registrationForm, setRegistrationForm] = useState<RegistrationFormData>({
     parentName: '',
     parentEmail: '',
-    wechatId: '',
+    parentWechatId: '',
     childName: '',
     childAge: 0,
     notes: '',
@@ -222,7 +222,7 @@ const EventDetails = () => {
                               </Typography>
                               <br />
                               <Typography component="span" variant="body2">
-                                Contact: {participant.parentEmail} | WeChat: {participant.wechatId}
+                                Contact: {participant.parentEmail} | WeChat: {participant.parentWechatId}
                               </Typography>
                               {participant.notes && (
                                 <>
@@ -282,8 +282,8 @@ const EventDetails = () => {
             <TextField
               label="WeChat ID"
               fullWidth
-              name="wechatId"
-              value={registrationForm.wechatId}
+              name="parentWechatId"
+              value={registrationForm.parentWechatId}
               onChange={handleRegistrationChange}
             />
             <TextField

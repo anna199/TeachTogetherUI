@@ -26,7 +26,7 @@ const Navbar = () => {
               fontWeight: 'bold',
             }}
           >
-            Mom Teach Kids
+            Teach Together
           </Typography>
           
           <Box sx={{ display: 'flex', gap: 2 }}>
